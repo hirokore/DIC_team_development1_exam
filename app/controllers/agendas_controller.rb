@@ -23,8 +23,12 @@ class AgendasController < ApplicationController
 
   #AgendasControllerのdestroyアクションを追加し、そこに機能追加する
   def destroy
-    @agenda.destroy
-    redirect_to dashboard_path, notice: "削除完了"
+    if @agenda.user == current_user || @agenda.team.owner == current_user
+      @agenda.destroy
+      redirect_to dashboard_path, notice: "削除完了"
+    else
+      redirect_to dashboard_path, notice: "どうやら権限がないようね、諦めなさい。"
+    end
   end
   
   private
