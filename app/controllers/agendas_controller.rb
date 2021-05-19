@@ -1,5 +1,5 @@
 class AgendasController < ApplicationController
-  # before_action :set_agenda, only: %i[show edit update destroy]
+  before_action :set_agenda, only: %i[show edit update destroy]
 
   def index
     @agendas = Agenda.all
@@ -21,6 +21,12 @@ class AgendasController < ApplicationController
     end
   end
 
+  #AgendasControllerのdestroyアクションを追加し、そこに機能追加する
+  def destroy
+    @agenda.destroy
+    redirect_to dashboard_path, notice: "削除完了"
+  end
+  
   private
 
   def set_agenda

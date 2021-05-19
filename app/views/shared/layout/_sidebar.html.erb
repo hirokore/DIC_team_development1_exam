@@ -29,29 +29,34 @@
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <% @working_team.agendas.each do |agenda| %>
-          <li class="nav-item has-treeview menu-open">
-            <a href="#" class="nav-link">
-              <i class="fa fa-circle-o nav-icon"></i>
-              <p>
-                <%= agenda.title %>
-                <i class="right fa fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview" style="display: block;">
-              <% agenda.articles.each do |article| %>
-                <li class="nav-item">
-                  <%= link_to article_path(article), class: 'nav-link' do %>
-                    <p><%= article.title %></p>
+          <table>
+            <th>
+              <li class="nav-item has-treeview menu-open">
+                <a href="#" class="nav-link">
+                  <i class="fa fa-circle-o nav-icon"></i>
+                  <p>
+                    <%= agenda.title.truncate(10) %>
+                    <i class="right fa fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview" style="display: block;">
+                  <% agenda.articles.each do |article| %>
+                    <li class="nav-item">
+                      <%= link_to article_path(article), class: 'nav-link' do %>
+                        <p><%= article.title %></p>
+                      <% end %>
+                    </li>
                   <% end %>
-                </li>
-              <% end %>
-              <li class="nav-item">
-                <%= link_to new_agenda_article_path(agenda), class: 'nav-link' do %>
-                  <p>+ <%= I18n.t('views.messages.create_article') %></p>
-                <% end %>
+                  <li class="nav-item">
+                    <%= link_to new_agenda_article_path(agenda), class: 'nav-link' do %>
+                      <p>+ <%= I18n.t('views.messages.create_article') %></p>
+                    <% end %>
+                  </li>
+                </ul>
               </li>
-            </ul>
-          </li>
+            </th>
+            <th class="btn btn-sm btn-danger"><%= link_to "削除", agenda, method: :delete, data: { confirm: "アジェンダを削除してもよろしいですか？" } %></th>
+          </table>
         <% end %>
       </ul>
     </nav>
@@ -59,3 +64,5 @@
   </div>
   <!-- /.sidebar -->
 </aside>
+
+
