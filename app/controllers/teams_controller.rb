@@ -9,6 +9,13 @@ class TeamsController < ApplicationController
   def show
     @working_team = @team
     change_keep_team(current_user, @team)
+    if params[:selected_user].present?
+      change_team_admin(params[:selected_user],@working_team)
+      email = @working_team.owner.email
+      password = @working_team.owner.password
+      AssignMailer.assign_mail(email, password).deliver
+      redirect_to dashboard_url, notice: "メールを送信しました。"
+    end
   end
 
   def new
@@ -46,7 +53,7 @@ class TeamsController < ApplicationController
   def dashboard
     @team = current_user.keep_team_id ? Team.find(current_user.keep_team_id) : current_user.teams.first
   end
-
+  
   private
 
   def set_team
