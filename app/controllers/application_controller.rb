@@ -7,6 +7,11 @@ class ApplicationController < ActionController::Base
     user.save!
   end
 
+  def change_team_admin(user,team)
+    team.owner_id = user
+    team.save!
+  end
+  
   private
 
   def set_working_team
