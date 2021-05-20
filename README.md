@@ -1,3 +1,12 @@
+# MYREADME
+
+以下実行用の２窓必要
+<br><br>
+rails s
+<br>
+bin/webpack-dev-server
+<br>
+<br>
 # README
 
 文書共有がSlack依存になってしまっている状態を改善するためのアプリケーション
